@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details | NovaShop</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Nova<span>Shop</span></a>
+            <div class="nav-actions">
+                <a href="products.html" class="nav-btn">Back to Shop</a>
+                <a href="cart.html" class="cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span id="cart-count">0</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="section detail-container" id="product-detail-view">
+        <div class="detail-gallery">
+            <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600" id="main-product-img" alt="Product Image">
+            <div class="thumbnail-row">
+                <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=150" class="thumb active" onclick="changeImage(this.src)">
+                <img src="https://images.unsplash.com/photo-1583394838336-acd977736f90?w=150" class="thumb" onclick="changeImage(this.src)">
+                <img src="https://images.unsplash.com/photo-1484704849700-f032a568e944?w=150" class="thumb" onclick="changeImage(this.src)">
+            </div>
+        </div>
+
+        <div class="detail-info">
+            <span class="category-tag">Premium Electronics</span>
+            <h1 class="product-title">NovaSound Wireless Headphones Pro</h1>
+            <div class="rating-stars">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i> <span>(142 Reviews)</span>
+            </div>
+            <div class="price-box">
+                <span class="current-price">$129.99</span>
+                <span class="old-price">$199.99</span>
+                <span class="discount-badge">35% OFF</span>
+            </div>
+            <p class="description">
+                Experience high-fidelity workspace sound architecture. Outfitted with hybrid Active Noise Cancelation, cloud-foam ear padding, and an exceptional 40-hour battery reservoir.
+            </p>
+            
+            <div class="purchase-actions">
+                <div class="qty-selector">
+                    <button onclick="updateDetailQty(-1)">-</button>
+                    <span id="detail-qty">1</span>
+                    <button onclick="updateDetailQty(1)">+</button>
+                </div>
+                <button class="btn btn-primary" onclick="addDetailToCart()">Add to Cart <i class="fas fa-shopping-bag"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <div id="toast-container"></div>
+    <script src="js/script.js"></script>
+    <script>
+        // Simple Gallery UI Switcher
+        function changeImage(src) {
+            document.getElementById('main-product-img').src = src;
+            document.querySelectorAll('.thumb').forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+        
+        let detailQty = 1;
+        function updateDetailQty(val) {
+            detailQty += val;
+            if(detailQty < 1) detailQty = 1;
+            document.getElementById('detail-qty').innerText = detailQty;
+        }
+
+        function addDetailToCart() {
+            // Hardcoded layout item abstraction mimicking real dynamic database logic
+            const detailProduct = { id: 1, name: "NovaSound Headphones Pro", price: 129.99, image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600" };
+            addToCartWithQty(detailProduct, detailQty);
+        }
+    </script>
+</body>
+</html>
