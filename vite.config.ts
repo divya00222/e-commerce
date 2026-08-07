@@ -5,10 +5,26 @@ import {defineConfig} from 'vite';
 
 export default defineConfig(() => {
   return {
+    base: process.env.VITE_BASE_PATH || './',
     plugins: [react(), tailwindcss()],
     resolve: {
       alias: {
         '@': path.resolve(__dirname, '.'),
+      },
+    },
+    build: {
+      outDir: 'dist',
+      assetsDir: 'assets',
+      sourcemap: false,
+      minify: 'esbuild' as const,
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            vendor: ['react', 'react-dom'],
+            icons: ['lucide-react'],
+            motion: ['motion'],
+          },
+        },
       },
     },
     server: {
